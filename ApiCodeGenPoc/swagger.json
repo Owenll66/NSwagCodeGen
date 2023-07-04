@@ -17,10 +17,10 @@
         "tags": [
           "WeatherForecast"
         ],
-        "operationId": "WeatherForecast_Get",
+        "operationId": "WeatherForecast_GetWeather",
         "responses": {
           "200": {
-            "x-nullable": true,
+            "x-nullable": false,
             "description": "",
             "schema": {
               "type": "array",
@@ -28,6 +28,15 @@
                 "$ref": "#/definitions/WeatherForecast"
               }
             }
+          },
+          "401": {
+            "description": ""
+          },
+          "403": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
           }
         }
       }

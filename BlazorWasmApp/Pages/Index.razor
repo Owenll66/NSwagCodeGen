@@ -1,4 +1,5 @@
 ﻿@page "/"
+
 @using ApiCodeGenPoc.ApiClient;
 
 <PageTitle>Index</PageTitle>
@@ -25,6 +26,6 @@ Welcome to your new app.
         var httpClient = new HttpClient();
         var client = new MyApiClient("https://localhost:7270", httpClient);
 
-        _weatherForecasts = await client.GetAsync();
+        _weatherForecasts = await client.GetWeatherAsync();
     }
 }

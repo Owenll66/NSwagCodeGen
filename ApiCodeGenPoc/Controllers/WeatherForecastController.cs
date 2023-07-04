@@ -18,9 +18,14 @@ namespace ApiCodeGenPoc.Controllers
             _logger = logger;
         }
 
-        [HttpPost]
-        public IEnumerable<WeatherForecast> GetWeather([FromQuery] int a, [FromQuery] int b)
+        [HttpGet]
+        [ProducesResponseType(typeof(ICollection<WeatherForecast>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult<IEnumerable<WeatherForecast>> GetWeather()
         {
+            return NotFound();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),

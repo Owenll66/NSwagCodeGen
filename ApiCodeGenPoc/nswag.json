@@ -49,7 +49,7 @@
       "output": "swagger.json",
       "outputType": "Swagger2",
       "newLineBehavior": "Auto",
-      "assemblyPaths": ["bin/$(Configuration)/net7.0/ApiCodeGenPoc.dll"],
+      "assemblyPaths": [ "bin/$(Configuration)/net7.0/ApiServer.dll" ],
       "assemblyConfig": null,
       "referencePaths": [],
       "useNuGetCache": false
