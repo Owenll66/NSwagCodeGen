@@ -8,7 +8,7 @@
 /* eslint-disable */
 // ReSharper disable InconsistentNaming
 
-namespace ApiCodeGenPoc.ApiClient {
+namespace ApiClient {
 
 export class MyApiClient {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };

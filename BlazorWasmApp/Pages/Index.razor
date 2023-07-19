@@ -1,6 +1,7 @@
 ﻿@page "/"
 
-@using ApiCodeGenPoc.ApiClient;
+@using ApiClient;
+@inject MyApiClient MyApiClient;
 
 <PageTitle>Index</PageTitle>
 
@@ -23,9 +24,6 @@ Welcome to your new app.
 
     private async Task FetchDataAsync()
     {
-        var httpClient = new HttpClient();
-        var client = new MyApiClient("https://localhost:7270", httpClient);
-
-        _weatherForecasts = await client.GetWeatherAsync();
+        _weatherForecasts = await MyApiClient.GetWeatherAsync();
     }
 }
