@@ -5,7 +5,7 @@ namespace ApiCodeGenPoc.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class NewWeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
@@ -14,17 +14,17 @@ namespace ApiCodeGenPoc.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public NewWeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpPost]
         [ProducesResponseType(typeof(ICollection<WeatherForecast>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<IEnumerable<WeatherForecast>> GetWeather()
+        public ActionResult<IEnumerable<WeatherForecast>> GetWeatherNew()
         {
             var data = Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

@@ -1,4 +1,4 @@
-namespace ApiCodeGenPoc
+namespace Contract.Responses
 {
     public class WeatherForecast
     {

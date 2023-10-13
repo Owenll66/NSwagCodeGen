@@ -21,10 +21,10 @@ Welcome to your new app.
 }
 
 @code {
-    ICollection<ApiClient.WeatherForecast> _weatherForecasts = new List<ApiClient.WeatherForecast>();
+    IEnumerable<Contract.Responses.WeatherForecast> _weatherForecasts = new List<Contract.Responses.WeatherForecast>();
 
     private async Task FetchDataAsync()
     {
-        _weatherForecasts = await MyApiClient.GetWeatherAsync();
+        _weatherForecasts = await MyApiClient.WeatherForecast_GetWeatherAsync();
     }
 }

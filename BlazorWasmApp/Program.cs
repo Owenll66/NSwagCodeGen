@@ -9,7 +9,7 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped(factory => new MyApiClient("https://localhost:7270", new HttpClient(), factory.GetService<IHttpContextAccessor>()!));
+builder.Services.AddScoped(provider => new MyApiClient("https://localhost:7270", provider.GetService<IHttpContextAccessor>()!));
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 await builder.Build().RunAsync();

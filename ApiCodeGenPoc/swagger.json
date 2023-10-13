@@ -12,6 +12,35 @@
     "application/json"
   ],
   "paths": {
+    "/NewWeatherForecast": {
+      "post": {
+        "tags": [
+          "NewWeatherForecast"
+        ],
+        "operationId": "NewWeatherForecast_GetWeatherNew",
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WeatherForecast"
+              }
+            }
+          },
+          "401": {
+            "description": ""
+          },
+          "403": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/WeatherForecast": {
       "get": {
         "tags": [

@@ -6,10 +6,9 @@ namespace ApiClient
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public MyApiClient(string baseUrl, HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
+        public MyApiClient(string baseUrl, IHttpContextAccessor httpContextAccessor)
         {
             BaseUrl = baseUrl;
-            _httpClient = httpClient;
             _settings = new Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
             _httpContextAccessor = httpContextAccessor;
         }

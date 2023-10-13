@@ -15,9 +15,13 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Contract\Contract.csproj" />
+  </ItemGroup>
+
   <Target Name="NSwag" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Debug' ">
     <Exec WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" Command="$(NSwagExe_Net70) run nswag.json /variables:Configuration=$(Configuration)" />
-    <Exec WorkingDirectory="$(ProjectDir)" Command="$(NSwagExe_Net70) openapi2csclient /input:swagger.json /classname:MyApiClient /output:..\ApiClient\MyApiClient.cs" />
-    <Exec WorkingDirectory="$(ProjectDir)" Command="$(NSwagExe_Net70) openapi2tsclient /input:swagger.json /classname:MyApiClient /output:..\ApiClient\MyApiClient.ts" />
+    <!--<Exec WorkingDirectory="$(ProjectDir)" Command="$(NSwagExe_Net70) openapi2csclient /input:swagger.json /classname:MyApiClient /output:..\ApiClient\MyApiClient.cs" />
+    <Exec WorkingDirectory="$(ProjectDir)" Command="$(NSwagExe_Net70) openapi2tsclient /input:swagger.json /classname:MyApiClient /output:..\ApiClient\MyApiClient.ts" />-->
   </Target>
 </Project>
