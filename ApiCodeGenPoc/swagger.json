@@ -13,7 +13,7 @@
   ],
   "paths": {
     "/NewWeatherForecast": {
-      "post": {
+      "get": {
         "tags": [
           "NewWeatherForecast"
         ],

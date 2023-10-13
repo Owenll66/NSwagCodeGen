@@ -19,7 +19,7 @@ namespace ApiCodeGenPoc.Controllers
             _logger = logger;
         }
 
-        [HttpPost]
+        [HttpGet]
         [ProducesResponseType(typeof(ICollection<WeatherForecast>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
