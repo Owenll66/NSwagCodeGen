@@ -19,15 +19,20 @@ export class Client {
     }
 
     /**
+     * @param body (optional) 
      * @return Success
      */
-    getWeatherNew(): Promise<WeatherForecast[]> {
+    getWeatherNew(body: WeatherForecastRequest | undefined): Promise<WeatherForecastResponse[]> {
         let url_ = this.baseUrl + "/NewWeatherForecast";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(body);
+
         let options_: RequestInit = {
-            method: "GET",
+            body: content_,
+            method: "POST",
             headers: {
+                "Content-Type": "application/json",
                 "Accept": "text/plain"
             }
         };
@@ -37,7 +42,7 @@ export class Client {
         });
     }
 
-    protected processGetWeatherNew(response: Response): Promise<WeatherForecast[]> {
+    protected processGetWeatherNew(response: Response): Promise<WeatherForecastResponse[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -47,7 +52,7 @@ export class Client {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(WeatherForecast.fromJS(item));
+                    result200!.push(WeatherForecastResponse.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -71,19 +76,24 @@ export class Client {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<WeatherForecast[]>(null as any);
+        return Promise.resolve<WeatherForecastResponse[]>(null as any);
     }
 
     /**
+     * @param body (optional) 
      * @return Success
      */
-    getWeather(): Promise<WeatherForecast[]> {
+    getWeather(body: WeatherForecastRequest | undefined): Promise<WeatherForecastResponse[]> {
         let url_ = this.baseUrl + "/WeatherForecast";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(body);
+
         let options_: RequestInit = {
-            method: "GET",
+            body: content_,
+            method: "POST",
             headers: {
+                "Content-Type": "application/json",
                 "Accept": "text/plain"
             }
         };
@@ -93,7 +103,7 @@ export class Client {
         });
     }
 
-    protected processGetWeather(response: Response): Promise<WeatherForecast[]> {
+    protected processGetWeather(response: Response): Promise<WeatherForecastResponse[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -103,7 +113,7 @@ export class Client {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(WeatherForecast.fromJS(item));
+                    result200!.push(WeatherForecastResponse.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -127,17 +137,57 @@ export class Client {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<WeatherForecast[]>(null as any);
+        return Promise.resolve<WeatherForecastResponse[]>(null as any);
     }
 }
 
-export class WeatherForecast implements IWeatherForecast {
+export class WeatherForecastRequest implements IWeatherForecastRequest {
+    startDate?: Date;
+    endDate?: Date;
+
+    constructor(data?: IWeatherForecastRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.startDate = _data["startDate"] ? new Date(_data["startDate"].toString()) : <any>undefined;
+            this.endDate = _data["endDate"] ? new Date(_data["endDate"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): WeatherForecastRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new WeatherForecastRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["startDate"] = this.startDate ? this.startDate.toISOString() : <any>undefined;
+        data["endDate"] = this.endDate ? this.endDate.toISOString() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IWeatherForecastRequest {
+    startDate?: Date;
+    endDate?: Date;
+}
+
+export class WeatherForecastResponse implements IWeatherForecastResponse {
     date?: Date;
     temperatureC?: number;
     readonly temperatureF?: number;
     summary?: string | undefined;
 
-    constructor(data?: IWeatherForecast) {
+    constructor(data?: IWeatherForecastResponse) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -155,9 +205,9 @@ export class WeatherForecast implements IWeatherForecast {
         }
     }
 
-    static fromJS(data: any): WeatherForecast {
+    static fromJS(data: any): WeatherForecastResponse {
         data = typeof data === 'object' ? data : {};
-        let result = new WeatherForecast();
+        let result = new WeatherForecastResponse();
         result.init(data);
         return result;
     }
@@ -172,7 +222,7 @@ export class WeatherForecast implements IWeatherForecast {
     }
 }
 
-export interface IWeatherForecast {
+export interface IWeatherForecastResponse {
     date?: Date;
     temperatureC?: number;
     temperatureF?: number;

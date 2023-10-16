@@ -1,7 +1,6 @@
 ﻿@page "/"
 
 @using ApiClient;
-@using static BlazorWasmApp.Pages.FetchData;
 @inject IMyApiClient MyApiClient;
 
 <PageTitle>Index</PageTitle>
@@ -21,10 +20,10 @@ Welcome to your new app.
 }
 
 @code {
-        IEnumerable<Contract.Responses.WeatherForecast> _weatherForecasts = new List<Contract.Responses.WeatherForecast>();
+    IEnumerable<Contract.Responses.WeatherForecastResponse> _weatherForecasts = new List<Contract.Responses.WeatherForecastResponse>();
 
-        private async Task FetchDataAsync()
-        {
-            _weatherForecasts = await MyApiClient.GetWeatherAsync();
-        }
+    private async Task FetchDataAsync()
+    {
+        _weatherForecasts = await MyApiClient.GetWeatherAsync(new());
+    }
 }

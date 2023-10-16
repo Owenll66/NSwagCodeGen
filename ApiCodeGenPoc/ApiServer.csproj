@@ -30,12 +30,14 @@
     <NSwagCSharpClientParam Include="/arrayType:System.Collections.Generic.IEnumerable" />
     <NSwagCSharpClientParam Include="/arrayBaseType:System.Collections.Generic.IEnumerable" />
     <NSwagCSharpClientParam Include="/operationGenerationMode:SingleClientFromOperationId" />
+    <!--<NSwagCSharpClientParam Include="/injectHttpClient:true" />-->
     <NSwagCSharpClientParam Include="/classname:MyApiClient" />
     <NSwagCSharpClientParam Include="/output:..\ApiClient\MyApiClient.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <CSharpClientNamespaces Include="Contract.Responses" />
+    <CSharpClientNamespaces Include="Contract.Requests" />
   </ItemGroup>
 
   <Target Name="NSwag" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Debug' ">

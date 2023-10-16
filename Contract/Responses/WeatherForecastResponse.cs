@@ -1,6 +1,6 @@
 namespace Contract.Responses
 {
-    public class WeatherForecast
+    public class WeatherForecastResponse
     {
         public DateTime Date { get; set; }
 

@@ -9,7 +9,6 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<IMyApiClient, MyApiClient>(provider => new MyApiClient("https://localhost:7270", provider.GetService<IHttpContextAccessor>()!));
-builder.Services.AddScoped(provider => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddSingleton<IMyApiClient, MyApiClient>(provider => new MyApiClient("https://localhost:7270", provider.GetService<IHttpContextAccessor>()!, new HttpClient()));
 
 await builder.Build().RunAsync();
