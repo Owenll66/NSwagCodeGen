@@ -40,7 +40,6 @@
 
   <Target Name="NSwag" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Debug' ">
     <Exec WorkingDirectory="$(ProjectDir)" Command="swagger tofile --output swagger.json .\$(OutputPath)$(AssemblyName).dll v1" />
-    <!--<Exec WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" Command="$(NSwagExe_Net70) run nswag.json /variables:Configuration=$(Configuration)" />-->
     <Exec WorkingDirectory="$(ProjectDir)" Command="$(NSwagExe_Net70) openapi2csclient @(NSwagCSharpClientParam, ' ') /additionalNamespaceUsages:@(CSharpClientNamespaces, ',')" />
     <Exec WorkingDirectory="$(ProjectDir)" Command="$(NSwagExe_Net70) openapi2tsclient /input:swagger.json /output:..\ApiClient\MyApiClient.ts" />
   </Target>
