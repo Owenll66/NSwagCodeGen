@@ -18,6 +18,9 @@ export class Client {
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
+    /**
+     * @return Success
+     */
     getWeatherNew(): Promise<WeatherForecast[]> {
         let url_ = this.baseUrl + "/NewWeatherForecast";
         url_ = url_.replace(/[?&]$/, "");
@@ -25,7 +28,7 @@ export class Client {
         let options_: RequestInit = {
             method: "GET",
             headers: {
-                "Accept": "application/json"
+                "Accept": "text/plain"
             }
         };
 
@@ -53,15 +56,15 @@ export class Client {
             });
         } else if (status === 401) {
             return response.text().then((_responseText) => {
-            return throwException("A server side error occurred.", status, _responseText, _headers);
+            return throwException("Unauthorized", status, _responseText, _headers);
             });
         } else if (status === 403) {
             return response.text().then((_responseText) => {
-            return throwException("A server side error occurred.", status, _responseText, _headers);
+            return throwException("Forbidden", status, _responseText, _headers);
             });
         } else if (status === 500) {
             return response.text().then((_responseText) => {
-            return throwException("A server side error occurred.", status, _responseText, _headers);
+            return throwException("Server Error", status, _responseText, _headers);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
@@ -71,6 +74,9 @@ export class Client {
         return Promise.resolve<WeatherForecast[]>(null as any);
     }
 
+    /**
+     * @return Success
+     */
     getWeather(): Promise<WeatherForecast[]> {
         let url_ = this.baseUrl + "/WeatherForecast";
         url_ = url_.replace(/[?&]$/, "");
@@ -78,7 +84,7 @@ export class Client {
         let options_: RequestInit = {
             method: "GET",
             headers: {
-                "Accept": "application/json"
+                "Accept": "text/plain"
             }
         };
 
@@ -106,15 +112,15 @@ export class Client {
             });
         } else if (status === 401) {
             return response.text().then((_responseText) => {
-            return throwException("A server side error occurred.", status, _responseText, _headers);
+            return throwException("Unauthorized", status, _responseText, _headers);
             });
         } else if (status === 403) {
             return response.text().then((_responseText) => {
-            return throwException("A server side error occurred.", status, _responseText, _headers);
+            return throwException("Forbidden", status, _responseText, _headers);
             });
         } else if (status === 500) {
             return response.text().then((_responseText) => {
-            return throwException("A server side error occurred.", status, _responseText, _headers);
+            return throwException("Server Error", status, _responseText, _headers);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
@@ -126,9 +132,9 @@ export class Client {
 }
 
 export class WeatherForecast implements IWeatherForecast {
-    date!: Date;
-    temperatureC!: number;
-    temperatureF!: number;
+    date?: Date;
+    temperatureC?: number;
+    readonly temperatureF?: number;
     summary?: string | undefined;
 
     constructor(data?: IWeatherForecast) {
@@ -142,10 +148,10 @@ export class WeatherForecast implements IWeatherForecast {
 
     init(_data?: any) {
         if (_data) {
-            this.date = _data["Date"] ? new Date(_data["Date"].toString()) : <any>undefined;
-            this.temperatureC = _data["TemperatureC"];
-            this.temperatureF = _data["TemperatureF"];
-            this.summary = _data["Summary"];
+            this.date = _data["date"] ? new Date(_data["date"].toString()) : <any>undefined;
+            this.temperatureC = _data["temperatureC"];
+            (<any>this).temperatureF = _data["temperatureF"];
+            this.summary = _data["summary"];
         }
     }
 
@@ -158,18 +164,18 @@ export class WeatherForecast implements IWeatherForecast {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["Date"] = this.date ? this.date.toISOString() : <any>undefined;
-        data["TemperatureC"] = this.temperatureC;
-        data["TemperatureF"] = this.temperatureF;
-        data["Summary"] = this.summary;
+        data["date"] = this.date ? this.date.toISOString() : <any>undefined;
+        data["temperatureC"] = this.temperatureC;
+        data["temperatureF"] = this.temperatureF;
+        data["summary"] = this.summary;
         return data;
     }
 }
 
 export interface IWeatherForecast {
-    date: Date;
-    temperatureC: number;
-    temperatureF: number;
+    date?: Date;
+    temperatureC?: number;
+    temperatureF?: number;
     summary?: string | undefined;
 }
 

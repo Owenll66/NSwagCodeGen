@@ -8,11 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NSwag.AspNetCore" Version="13.20.0" />
     <PackageReference Include="NSwag.MSBuild" Version="13.20.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,27 +21,27 @@
 
   <!-- NSwag configuration document can be found at https://github.com/RicoSuter/NSwag/wiki/NSwag-Configuration-Document -->
   <ItemGroup>
-    <NSwagCSharpClientParam Include="/input:swagger.json"/>
-    <NSwagCSharpClientParam Include="/namespace:ApiClient"/>
-    <NSwagCSharpClientParam Include="/generateClientInterfaces:true"/>
-    <!--<NSwagCSharpClientParam Include="/generateResponseClasses:false"/>-->
-    <NSwagCSharpClientParam Include="/generateDtoTypes:false"/>
-    <NSwagCSharpClientParam Include="/parameterArrayType:System.Collections.Generic.IEnumerable"/>
-    <NSwagCSharpClientParam Include="/responseArrayType:System.Collections.Generic.IEnumerable"/>
-    <NSwagCSharpClientParam Include="/arrayType:System.Collections.Generic.IEnumerable"/>
-    <NSwagCSharpClientParam Include="/arrayBaseType:System.Collections.Generic.IEnumerable"/>
-    <NSwagCSharpClientParam Include="/operationGenerationMode:SingleClientFromOperationId"/>
-    <NSwagCSharpClientParam Include="/classname:MyApiClient"/>
-    <NSwagCSharpClientParam Include="/output:..\ApiClient\MyApiClient.cs"/>
+    <NSwagCSharpClientParam Include="/input:swagger.json" />
+    <NSwagCSharpClientParam Include="/namespace:ApiClient" />
+    <NSwagCSharpClientParam Include="/generateClientInterfaces:true" />
+    <NSwagCSharpClientParam Include="/generateDtoTypes:false" />
+    <NSwagCSharpClientParam Include="/parameterArrayType:System.Collections.Generic.IEnumerable" />
+    <NSwagCSharpClientParam Include="/responseArrayType:System.Collections.Generic.IEnumerable" />
+    <NSwagCSharpClientParam Include="/arrayType:System.Collections.Generic.IEnumerable" />
+    <NSwagCSharpClientParam Include="/arrayBaseType:System.Collections.Generic.IEnumerable" />
+    <NSwagCSharpClientParam Include="/operationGenerationMode:SingleClientFromOperationId" />
+    <NSwagCSharpClientParam Include="/classname:MyApiClient" />
+    <NSwagCSharpClientParam Include="/output:..\ApiClient\MyApiClient.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <CSharpClientNamespaces Include="Contract.Responses"/>
+    <CSharpClientNamespaces Include="Contract.Responses" />
   </ItemGroup>
 
   <Target Name="NSwag" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Debug' ">
+    <Exec WorkingDirectory="$(ProjectDir)" Command="swagger tofile --output swagger.json .\$(OutputPath)$(AssemblyName).dll v1" />
     <!--<Exec WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" Command="$(NSwagExe_Net70) run nswag.json /variables:Configuration=$(Configuration)" />-->
-    <Exec WorkingDirectory="$(ProjectDir)" Command="$(NSwagExe_Net70) openapi2csclient @(NSwagCSharpClientParam, ' ') /additionalNamespaceUsages:@(CSharpClientNamespaces, ',')"/>
+    <Exec WorkingDirectory="$(ProjectDir)" Command="$(NSwagExe_Net70) openapi2csclient @(NSwagCSharpClientParam, ' ') /additionalNamespaceUsages:@(CSharpClientNamespaces, ',')" />
     <Exec WorkingDirectory="$(ProjectDir)" Command="$(NSwagExe_Net70) openapi2tsclient /input:swagger.json /output:..\ApiClient\MyApiClient.ts" />
   </Target>
 </Project>

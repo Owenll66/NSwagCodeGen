@@ -24,17 +24,21 @@ namespace ApiClient
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial interface IMyApiClient
     {
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<WeatherForecast>> GetWeatherNewAsync();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<WeatherForecast>> GetWeatherNewAsync(System.Threading.CancellationToken cancellationToken);
 
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<WeatherForecast>> GetWeatherAsync();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<WeatherForecast>> GetWeatherAsync(System.Threading.CancellationToken cancellationToken);
 
@@ -75,6 +79,7 @@ namespace ApiClient
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<WeatherForecast>> GetWeatherNewAsync()
         {
@@ -82,6 +87,7 @@ namespace ApiClient
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<WeatherForecast>> GetWeatherNewAsync(System.Threading.CancellationToken cancellationToken)
         {
@@ -95,7 +101,7 @@ namespace ApiClient
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -131,19 +137,19 @@ namespace ApiClient
                         if (status_ == 401)
                         {
                             string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
+                            throw new ApiException("Unauthorized", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 403)
                         {
                             string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
+                            throw new ApiException("Forbidden", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 500)
                         {
                             string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
+                            throw new ApiException("Server Error", status_, responseText_, headers_, null);
                         }
                         else
                         {
@@ -165,6 +171,7 @@ namespace ApiClient
             }
         }
 
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<WeatherForecast>> GetWeatherAsync()
         {
@@ -172,6 +179,7 @@ namespace ApiClient
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<WeatherForecast>> GetWeatherAsync(System.Threading.CancellationToken cancellationToken)
         {
@@ -185,7 +193,7 @@ namespace ApiClient
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -221,19 +229,19 @@ namespace ApiClient
                         if (status_ == 401)
                         {
                             string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
+                            throw new ApiException("Unauthorized", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 403)
                         {
                             string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
+                            throw new ApiException("Forbidden", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 500)
                         {
                             string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
+                            throw new ApiException("Server Error", status_, responseText_, headers_, null);
                         }
                         else
                         {
