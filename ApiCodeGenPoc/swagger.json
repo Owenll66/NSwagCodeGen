@@ -6,11 +6,30 @@
   },
   "paths": {
     "/NewWeatherForecast": {
-      "get": {
+      "post": {
         "tags": [
           "NewWeatherForecast"
         ],
         "operationId": "GetWeatherNew",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WeatherForecastRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WeatherForecastRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WeatherForecastRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success",
@@ -19,7 +38,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
+                    "$ref": "#/components/schemas/WeatherForecastResponse"
                   }
                 }
               },
@@ -27,7 +46,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
+                    "$ref": "#/components/schemas/WeatherForecastResponse"
                   }
                 }
               },
@@ -35,7 +54,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
+                    "$ref": "#/components/schemas/WeatherForecastResponse"
                   }
                 }
               }
@@ -54,11 +73,30 @@
       }
     },
     "/WeatherForecast": {
-      "get": {
+      "post": {
         "tags": [
           "WeatherForecast"
         ],
         "operationId": "GetWeather",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WeatherForecastRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WeatherForecastRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WeatherForecastRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success",
@@ -67,7 +105,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
+                    "$ref": "#/components/schemas/WeatherForecastResponse"
                   }
                 }
               },
@@ -75,7 +113,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
+                    "$ref": "#/components/schemas/WeatherForecastResponse"
                   }
                 }
               },
@@ -83,7 +121,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
+                    "$ref": "#/components/schemas/WeatherForecastResponse"
                   }
                 }
               }
@@ -104,7 +142,21 @@
   },
   "components": {
     "schemas": {
-      "WeatherForecast": {
+      "WeatherForecastRequest": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WeatherForecastResponse": {
         "type": "object",
         "properties": {
           "date": {

@@ -1,3 +1,4 @@
+using Contract.Requests;
 using Contract.Responses;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,14 +20,14 @@ namespace ApiCodeGenPoc.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        [ProducesResponseType(typeof(ICollection<WeatherForecast>), StatusCodes.Status200OK)]
+        [HttpPost]
+        [ProducesResponseType(typeof(ICollection<WeatherForecastResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<IEnumerable<WeatherForecast>> GetWeatherNew()
+        public ActionResult<IEnumerable<WeatherForecastResponse>> GetWeatherNew([FromBody] WeatherForecastRequest weatherForecastRequest)
         {
-            var data = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var data = Enumerable.Range(1, 5).Select(index => new WeatherForecastResponse
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = Random.Shared.Next(-20, 55),

@@ -4,11 +4,12 @@ namespace ApiClient
 {
     public partial class MyApiClient
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor? _httpContextAccessor;
 
-        public MyApiClient(string baseUrl, IHttpContextAccessor httpContextAccessor)
+        public MyApiClient(string baseUrl, IHttpContextAccessor httpContextAccessor, HttpClient httpClient)
         {
             BaseUrl = baseUrl;
+            _httpClient = httpClient;
             _settings = new Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
             _httpContextAccessor = httpContextAccessor;
         }
@@ -20,6 +21,9 @@ namespace ApiClient
 
         private void AddToken(HttpRequestMessage request)
         {
+            if (_httpContextAccessor == null)
+                return;
+
             var bearerToken = _httpContextAccessor.HttpContext?.Request?.Headers["Authorization"].ToString();
 
             if (bearerToken != null)
