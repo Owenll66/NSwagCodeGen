@@ -24,7 +24,6 @@
     <NSwagCSharpClientParam Include="/input:swagger.json"/>
     <NSwagCSharpClientParam Include="/namespace:ApiClient"/>
     <NSwagCSharpClientParam Include="/generateClientInterfaces:true"/>
-    <!--<NSwagCSharpClientParam Include="/generateResponseClasses:false"/>-->
     <NSwagCSharpClientParam Include="/generateDtoTypes:false"/>
     <NSwagCSharpClientParam Include="/parameterArrayType:System.Collections.Generic.IEnumerable"/>
     <NSwagCSharpClientParam Include="/responseArrayType:System.Collections.Generic.IEnumerable"/>
