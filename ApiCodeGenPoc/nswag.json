@@ -46,7 +46,7 @@
       "startupType": null,
       "allowNullableBodyParameters": true,
       "useHttpAttributeNameAsOperationId": false,
-      "output": "swagger.json",
+      "output": null,
       "outputType": "Swagger2",
       "newLineBehavior": "Auto",
       "assemblyPaths": [ "bin/$(Configuration)/net7.0/ApiServer.dll" ],
