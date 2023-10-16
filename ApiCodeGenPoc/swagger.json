@@ -17,7 +17,7 @@
         "tags": [
           "NewWeatherForecast"
         ],
-        "operationId": "NewWeatherForecast_GetWeatherNew",
+        "operationId": "GetWeatherNew",
         "responses": {
           "200": {
             "x-nullable": false,
@@ -46,7 +46,7 @@
         "tags": [
           "WeatherForecast"
         ],
-        "operationId": "WeatherForecast_GetWeather",
+        "operationId": "GetWeather",
         "responses": {
           "200": {
             "x-nullable": false,
