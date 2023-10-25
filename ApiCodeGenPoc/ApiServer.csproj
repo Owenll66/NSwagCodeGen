@@ -19,7 +19,7 @@
     <ProjectReference Include="..\Contract\Contract.csproj" />
   </ItemGroup>
 
-  <!-- NSwag configuration document can be found at https://github.com/RicoSuter/NSwag/wiki/NSwag-Configuration-Document -->
+  <!-- NSwag configuration document can be found at https://github.com/RicoSuter/NSwag/wiki/NSwag-Configuration-Document. -->
   <ItemGroup>
     <NSwagCSharpClientParam Include="/input:swagger.json" />
     <NSwagCSharpClientParam Include="/namespace:ApiClient" />
@@ -34,13 +34,15 @@
     <NSwagCSharpClientParam Include="/output:..\ApiClient\MyApiClient.cs" />
   </ItemGroup>
 
+  <!-- Additional namespaces to be included in the generated csharp api client. -->
   <ItemGroup>
     <CSharpClientNamespaces Include="Contract.Responses" />
     <CSharpClientNamespaces Include="Contract.Requests" />
   </ItemGroup>
 
   <Target Name="NSwag" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Debug' ">
-    <Exec WorkingDirectory="$(ProjectDir)" Command="swagger tofile --output swagger.json .\$(OutputPath)$(AssemblyName).dll v1" />
+    <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet tool restore" />
+    <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet swagger tofile --output swagger.json .\$(OutputPath)$(AssemblyName).dll v1" />
     <Exec WorkingDirectory="$(ProjectDir)" Command="$(NSwagExe_Net70) openapi2csclient @(NSwagCSharpClientParam, ' ') /additionalNamespaceUsages:@(CSharpClientNamespaces, ',')" />
     <Exec WorkingDirectory="$(ProjectDir)" Command="$(NSwagExe_Net70) openapi2tsclient /input:swagger.json /output:..\ApiClient\MyApiClient.ts" />
   </Target>
