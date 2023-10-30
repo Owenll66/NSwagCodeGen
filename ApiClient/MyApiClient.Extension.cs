@@ -10,7 +10,7 @@ namespace ApiClient
         {
             BaseUrl = baseUrl;
             _httpClient = httpClient;
-            _settings = new Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
+            _settings = new Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings, true);
             _httpContextAccessor = httpContextAccessor;
         }
 
