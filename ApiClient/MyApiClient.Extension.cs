@@ -24,10 +24,8 @@ namespace ApiClient
             if (_httpContextAccessor == null)
                 return;
 
-            var bearerToken = _httpContextAccessor.HttpContext?.Request?.Headers["Authorization"].ToString();
-
-            if (bearerToken != null)
-                request.Headers.Add("Authorization", bearerToken);
+            if (_httpContextAccessor.HttpContext?.Request?.Headers.TryGetValue("Authorization", out var token) == true)
+                request.Headers.Add("Authorization", token.ToString());
         }
     }
 }
