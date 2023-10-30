@@ -10,7 +10,7 @@ namespace ApiClient
         {
             BaseUrl = baseUrl;
             _httpClient = httpClient;
-            _settings = new Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
+            _settings = new Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings, true);
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -24,10 +24,8 @@ namespace ApiClient
             if (_httpContextAccessor == null)
                 return;
 
-            var bearerToken = _httpContextAccessor.HttpContext?.Request?.Headers["Authorization"].ToString();
-
-            if (bearerToken != null)
-                request.Headers.Add("Authorization", bearerToken);
+            if (_httpContextAccessor.HttpContext?.Request?.Headers.TryGetValue("Authorization", out var token) == true)
+                request.Headers.Add("Authorization", token.ToString());
         }
     }
 }
